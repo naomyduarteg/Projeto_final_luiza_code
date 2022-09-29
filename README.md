@@ -25,7 +25,7 @@ objective is to create, read, update and delete users, user's addresses and prod
 │   ├── main.py
  </code>
 </pre>
-## Instructins <a name="instruction"></a>
+## Instructions <a name="instruction"></a>
 1. Clone the folder in the repository:
 
 ```
