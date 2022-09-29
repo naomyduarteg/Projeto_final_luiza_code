@@ -29,7 +29,7 @@ objective is to create, read, update and delete users, user's addresses and prod
 1. Clone the folder in the repository:
 
 ```
-https://github.com/naomyduarteg/Portfolio/CRUD_python_mongo.git
+https://github.com/naomyduarteg/CRUD_python_mongo.git
 ```
 2. Create a virtual environement
 
