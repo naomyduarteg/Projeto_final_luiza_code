@@ -40,7 +40,19 @@ def list_items(request: Request):
     items = list(request.app.database["items"].find(limit=100))
     return items
 
-@router.delete("/{id}", response_description="Delete an item")
+@router.get("/{id}/", response_description="List items by id", response_model=Item)
+def list_items_by_id(request: Request, id: str):
+    if (item := request.app.database["items"].find_one({"_id": id})) is not None:
+        return item
+    raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Item with ID {id} not found")
+
+@router.get("/name/{name}/", response_description="List items by name", response_model=Item)
+def list_items_by_name(request: Request, name: str):
+    if (item := request.app.database["items"].find_one({"name": name})) is not None:
+        return item
+    raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Item with name {name} not found")
+
+@router.delete("/{id}/", response_description="Delete an item")
 def delete_item(id: str, request: Request, response: Response):
     deleted_item = request.app.database["items"].delete_one({"_id": id})
 
