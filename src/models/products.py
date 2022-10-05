@@ -11,7 +11,7 @@ class Item(BaseModel):
     price_rent: float
     price_buy: float
     genre: str
-    year: str 
+    year: int 
     duration: Optional[float] #em minutos
     languages: str 
     subtitles: str  
@@ -46,7 +46,7 @@ class ItemUpdate(BaseModel):
     price_rent: Optional[float]
     price_buy: Optional[float]
     genre: Optional[str]
-    year: Optional[str]
+    year: Optional[int]
     duration: Optional[float]
     languages: Optional[str]
     subtitles: Optional[str]
