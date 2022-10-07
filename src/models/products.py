@@ -14,7 +14,8 @@ class Item(BaseModel):
     year: int 
     duration: Optional[float] #em minutos
     languages: str 
-    subtitles: str  
+    subtitles: str
+    price: float  
   
     class Config:
         allow_population_by_field_name = True
@@ -36,7 +37,8 @@ class Item(BaseModel):
                 "year": 2019,
                 "duration": 171,
                 "languages": "Português",
-                "subtitles": "Inglês"
+                "subtitles": "Inglês",
+                "price": 10.00
             }
         }
 
@@ -50,6 +52,7 @@ class ItemUpdate(BaseModel):
     duration: Optional[float]
     languages: Optional[str]
     subtitles: Optional[str]
+    price: Optional[float]
 
     class Config:
         allow_population_by_field_name = True
