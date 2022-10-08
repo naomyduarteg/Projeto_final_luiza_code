@@ -44,14 +44,17 @@ def create_cart(user_id: str, product_id: str, product_qtt: int,request: Request
    
     products = cart["products"]
     addProductItem(products,cart_item)   
-    total = calculateTotalPrice(products)    
+    total = calculateTotalPrice(products)
+    total_amount = calculateTotalAmount(products)    
     
     filter = {"_id": cart["_id"]}
     request.app.database["carts"].update_one(filter, {"$set": {"products": jsonable_encoder(products)}})       
     request.app.database["carts"].update_one(filter, {"$set": {"total_price": total}})
+    request.app.database["carts"].update_one(filter, {"$set": {"quantity_products": total_amount}})
         
     cart["products"] = products
     cart["total_price"] = total       
+    cart["quantity_products"] = total_amount
     
     return cart
 
@@ -74,3 +77,10 @@ def addProductItem(item_list: List[CartsItem], item: CartsItem):
         item_list.append(item)
            
     return item_list
+
+def calculateTotalAmount(itemList: List[CartsItem]):
+    total_amount = 0
+   
+    for item in itemList:        
+        total_amount += item["quantity"]
+    return total_amount
