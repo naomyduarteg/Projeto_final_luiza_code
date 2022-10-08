@@ -4,7 +4,6 @@ from fastapi.encoders import jsonable_encoder
 from src.models.carts import Cart
 from src.models.carts_item import CartsItem
 
-
 router = APIRouter(prefix="/cart", tags=["Cart"])
 
 @router.get("/",response_description="Get all carts", response_model=List[Cart])
@@ -30,10 +29,10 @@ def create_cart(user_id: str, product_id: str, product_qtt: int,request: Request
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"User with id {user_id} not found")
    
     cart = request.app.database["carts"].find_one({"user_id": user_id})
-    cart_item = CartsItem(product_id=product_id, quantity=product_qtt)
+    cart_item = CartsItem(product_id=product_id, quantity=product_qtt, price=product["price"])
    
     if cart is None:          
-        list_products = [cart_item]
+        list_products = [cart_item]        
         total = product["price"] * product_qtt
         cart = Cart(user_id= user_id, products= list_products, total_price= total, quantity_products = product_qtt)
         cart = jsonable_encoder(cart)
@@ -43,10 +42,23 @@ def create_cart(user_id: str, product_id: str, product_qtt: int,request: Request
         )
         return created_cart
    
-    products = cart["products"]          
-    products.append(cart_item)
-   
+    products = cart["products"]   
+    total = calculateTotalPrice(products)    
+    
     filter = {"_id": cart["_id"]}
-    request.app.database["carts"].update_one(filter, {"$set": {"products": jsonable_encoder(products)}})
-   
+    request.app.database["carts"].update_one(filter, {"$set": {"products": jsonable_encoder(products)}})       
+    request.app.database["carts"].update_one(filter, {"$set": {"total_price": total}})
+        
+    cart["products"] = products
+    cart["total_price"] = total       
+    
     return cart
+
+def calculateTotalPrice(itemList: List[CartsItem]):
+    total = 0
+    
+    for item in itemList:        
+        total += item["quantity"] * item["price"]        
+    return total
+
+    
