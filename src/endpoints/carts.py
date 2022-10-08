@@ -42,7 +42,8 @@ def create_cart(user_id: str, product_id: str, product_qtt: int,request: Request
         )
         return created_cart
    
-    products = cart["products"]   
+    products = cart["products"]
+    addProductItem(products,cart_item)   
     total = calculateTotalPrice(products)    
     
     filter = {"_id": cart["_id"]}
@@ -60,5 +61,16 @@ def calculateTotalPrice(itemList: List[CartsItem]):
     for item in itemList:        
         total += item["quantity"] * item["price"]        
     return total
-
-    
+ 
+def addProductItem(item_list: List[CartsItem], item: CartsItem):        
+    is_update = False
+   
+    for cart_item in item_list:
+        if (cart_item["product_id"] == item["product_id"]):
+            cart_item["quantity"] = item["quantity"]
+            is_update = True
+           
+    if (is_update == False):      
+        item_list.append(item)
+           
+    return item_list
