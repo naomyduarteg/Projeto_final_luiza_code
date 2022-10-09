@@ -1,6 +1,7 @@
 import uuid
 from pydantic import BaseModel, Field
 from pydantic.networks import EmailStr
+from typing import Optional
 
 class User(BaseModel):
     id: str = Field(default_factory=uuid.uuid4, alias="_id")
@@ -21,8 +22,10 @@ class User(BaseModel):
 
 #-------------------------------- ADDRESS -------------------------------------------
 class UserAddress(BaseModel):
-    user_id: str 
+    addr_name: Optional[str] #apelido do endereço
+    user_email: str 
     street: str 
+    number: str
     city: str  
     state: str
     cep : str 
@@ -30,8 +33,10 @@ class UserAddress(BaseModel):
     class Config:
         schema_extra = {
             "example": {
-                "user_id": "4815162342",
-                "street": "Rua Capitão José Esteves Júnior, 639",
+                "addr_name": "Casa",
+                "user_email": "dollyna@gmail.com",
+                "street": "Rua Capitão José Esteves Júnior",
+                "number": "639",
                 "city": "Altinópolis",
                 "state": "São Paulo",
                 "cep": "14350000"
