@@ -84,3 +84,34 @@ def calculateTotalAmount(itemList: List[CartsItem]):
     for item in itemList:        
         total_amount += item["quantity"]
     return total_amount
+
+@router.delete("/{user_id}/{product_id}", response_description="Delete an item from cart", status_code=status.HTTP_200_OK)
+def delete_product(user_id: str, product_id: str,request: Request):
+    cart = request.app.database["carts"].find_one({"user_id": user_id})
+        
+    if cart is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Cart with user id {user_id} not found")
+    
+    list_products = cart["products"]
+    product_found = False
+    for product in list_products:
+        if (product["product_id"] == product_id):                
+            list_products.remove(product)
+            product_found = True            
+            cart["total_price"] = calculateTotalPrice(list_products)            
+            cart["quantity_products"] = calculateTotalAmount(list_products)
+            
+    if(product_found == False):
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Product with id {product_id} not found")
+         
+    if list_products == []:
+        request.app.database["carts"].delete_one({"user_id": user_id})        
+        return "Cart with no products. Successfully deleted!" 
+    
+    filter = {"_id": cart["_id"]}
+    request.app.database["carts"].update_one(filter, {"$set": {"products": jsonable_encoder(list_products)}})
+    request.app.database["carts"].update_one(filter, {"$set": {"total_price": cart["total_price"]}})
+    request.app.database["carts"].update_one(filter, {"$set": {"quantity_products": cart["quantity_products"]}})
+    
+    cart["products"] = list_products
+    return cart
