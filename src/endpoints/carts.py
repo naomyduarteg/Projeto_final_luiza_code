@@ -105,7 +105,7 @@ def delete_product(user_id: str, product_id: str,request: Request):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Product with id {product_id} not found")
          
     if list_products == []:
-        request.app.database["carts"].delete_one({"user_id": user_id})        
+        delete_cart(user_id,request)                
         return "Cart with no products. Successfully deleted!" 
     
     filter = {"_id": cart["_id"]}
@@ -115,3 +115,13 @@ def delete_product(user_id: str, product_id: str,request: Request):
     
     cart["products"] = list_products
     return cart
+
+@router.delete("/{user_id}/", response_description="Delete a cart", status_code=status.HTTP_200_OK)
+def delete_cart(user_id: str, request: Request):
+    cart = request.app.database["carts"].find_one({"user_id": user_id})
+        
+    if cart is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Cart with user id {user_id} not found")
+    
+    request.app.database["carts"].delete_one({"user_id": user_id})
+    return "Cart successfully deleted!"
