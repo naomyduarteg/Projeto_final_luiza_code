@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Body, Request, Response, HTTPException, status
+from fastapi import APIRouter, Request, Response, HTTPException, status
 from fastapi.encoders import jsonable_encoder
 from typing import List
 from src.models.products import Item, ItemUpdate
@@ -18,7 +18,7 @@ def create_item(request: Request, item: Item):
     return created_item
 
 @router.put("/{id}", response_description="Update an item", response_model=Item)
-def update_item(id: str, request: Request, item: ItemUpdate = Body(...)):
+def update_item(id: str, request: Request, item: ItemUpdate):
     item = {k: v for k, v in item.dict().items() if v is not None}
     if len(item) >= 1:
         update_result = request.app.database["items"].update_one(
