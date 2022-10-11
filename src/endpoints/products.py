@@ -1,62 +1,33 @@
-from fastapi import APIRouter, Request, Response, HTTPException, status
-from fastapi.encoders import jsonable_encoder
+from fastapi import APIRouter, Request, status
 from typing import List
+
 from src.models.products import Item, ItemUpdate
-from bson import ObjectId
+import src.business_objects.product_bo as product_bo
+
 
 router = APIRouter(prefix="/item",
     tags=["Item"])
 
 @router.post("/", response_description="Create an item", status_code=status.HTTP_201_CREATED, response_model=Item)
-def create_item(request: Request, item: Item):
-    item = jsonable_encoder(item)
-    new_item = request.app.database["items"].insert_one(item)
-    created_item = request.app.database["items"].find_one(
-        {"_id": new_item.inserted_id} 
-    )
-
-    return created_item
+def create_item(request: Request, item: Item):    
+    return product_bo.create_item(request, item)
 
 @router.put("/{id}", response_description="Update an item", response_model=Item)
-def update_item(id: str, request: Request, item: ItemUpdate):
-    item = {k: v for k, v in item.dict().items() if v is not None}
-    if len(item) >= 1:
-        update_result = request.app.database["items"].update_one(
-            {"_id": id}, {"$set": item}
-        )
-
-        if update_result.modified_count == 0:
-            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Item with ID {id} not found")
-
-    if (
-        existing_item := request.app.database["items"].find_one({"_id": id})
-    ) is not None:
-        return existing_item
-
-    raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Item with ID {id} not found")
+def update_item(request: Request, id: str, item: ItemUpdate):
+    return product_bo.update_item(request, id, item)
 
 @router.get("/", response_description="List all items", response_model=List[Item])
-def list_items(request: Request):
-    items = list(request.app.database["items"].find(limit=100))
-    return items
+def list_items(request: Request):    
+    return product_bo.list_items(request, 100)
 
 @router.get("/{id}/", response_description="List items by id", response_model=Item)
 def list_items_by_id(request: Request, id: str):
-    if (item := request.app.database["items"].find_one({"_id": id})) is not None:
-        return item
-    raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Item with ID {id} not found")
+    return product_bo.list_items_by_id(request, id)
 
 @router.get("/name/{name}/", response_description="List items by name", response_model=Item)
-def list_items_by_name(request: Request, name: str):
-    if (item := request.app.database["items"].find_one({"name": name})) is not None:
-        return item
-    raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Item with name {name} not found")
+def list_items_by_name(request: Request, name: str):    
+    return product_bo.list_items_by_name(request, name)
 
 @router.delete("/{id}/", response_description="Delete an item")
-def delete_item(id: str, request: Request, response: Response):
-    deleted_item = request.app.database["items"].delete_one({"_id": id})
-
-    if deleted_item.deleted_count == 1:
-        return f"Item with ID {id} deleted sucessfully"
-
-    raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Item with ID {id} not found")
+def delete_item(request: Request, id: str):
+    return product_bo.delete_item(request, id)
