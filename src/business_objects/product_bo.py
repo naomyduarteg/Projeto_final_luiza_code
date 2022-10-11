@@ -25,9 +25,7 @@ def update_item(request: Request, id: str, item: ItemUpdate):
         if update_result.modified_count == 0:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Item with ID {id} not found")
 
-    if (
-        existing_item := get_collection_items(request).find_one({"_id": id})
-    ) is not None:
+    if (existing_item := get_collection_items(request).find_one({"_id": id})) is not None:
         return existing_item
 
     raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Item with ID {id} not found")
