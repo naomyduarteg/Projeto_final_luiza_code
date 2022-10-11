@@ -1,65 +1,89 @@
-<h1 align='left'> CRUD with Python and MongoDB using FastAPI </h1>
+![luluflix](https://user-images.githubusercontent.com/73078250/195168917-cd8de02a-777c-4d0b-82f8-2d42a8b0d27a.png)
 
-## Motivation <a name="motivation"></a>
+<h1 align='center'> Projeto final Luiza &lt;code&gt;: carrinho de compra <br> Grupo 13: filmes e séries </h1>
 
-This project is a simplified CRUD API REST exercise in Python with MongoDB as the database and using FastAPI. Its main
-objective is to create, read, update and delete users, user's addresses and products. The structure of this project is as follows:
+![luluflix-api](https://user-images.githubusercontent.com/73078250/195190270-a51615cc-37dd-4021-850e-ab44499aad35.svg)
+![versão-1 0](https://user-images.githubusercontent.com/73078250/195189793-cc7802c8-3c9a-4222-939d-7154fb6fc4bf.svg)
+[![forthebadge](https://forthebadge.com/images/badges/it-works-why.svg)](https://forthebadge.com)
+[![forthebadge](https://forthebadge.com/images/badges/made-with-python.svg)](https://forthebadge.com)
+
+
+## Membros da equipe
+:star2: <a href="https://www.linkedin.com/in/amandapq/"> Amanda Pacheco</a>
+
+:star2: <a href="https://www.linkedin.com/in/naomyduarteg/"> Naomy Duarte Gomes</a>
+
+:star2: <a href="https://www.linkedin.com/in/tamaradscosta/">Tamara Santos Costa</a>
+
+
+## Objetivos
+
+Este é o projeto final do bootcamp de aceleração em Python promovido pelo Luiza labs, que sumariza tudo o que foi aprendido durante as semanas por meio da criação de um carrinho de compras. Nosso grupo recebeu como objetos de venda filmes e séries e nomeamos nossa aplicação ![luluflix (1)](https://user-images.githubusercontent.com/73078250/195190456-941ad59c-ca69-4e47-89d6-f7060299cba7.svg)
+
+Utilizamos Python como linguagem de programação, o framework FastAPI e a base de dados não-relacional MongoDB. 
+Para a criação do carrinho, as informações que utilizamos no projeto foram: clientes, produtos e o próprio carrinho. Os clientes podem cadastrar mais de um endereço e podem alugar ou comprar filmes e séries em formato digital (nenhum produto físico é utilizado). 
+A estrutura do projeto é a seguinte:
+
 <pre>
 <code>
-├── CRUD_python_mongo
-│   │── env
-│   ├── routes
-│   │     └── api.py
+├── Projeto_final_luiza_code
+│   │── env.example
 │   ├── src
 │   │    ├── __init__.py
+│   │    ├── business_objects
+│   │    │      ├── cart_bo.py
+│   │    │      ├── product_bo.py
+│   │    │      └── user_bo.py
+│   │    │
 │   │    ├── endpoints
 │   │    │      ├── __init__.py
+│   │    │      ├── carts.py
 │   │    │      ├── products.py
 │   │    │      └── users.py
 │   │    │
-│   │    └── models
-│   │           ├── __init__.py
-│   │           ├── products.py
-│   │           └── users.py
+│   │    ├── models
+│   │    │      ├── carts.py
+│   │    │      ├── carts_item.py
+│   │    │      ├── products.py
+│   │    │      └── users.py
+│   │    │
+│   │    └── routes
+│   │           └── api.py
 │   ├── __init__.py
 │   ├── main.py
+│   ├── requirements.txt
+    └── README.md
  </code>
 </pre>
-## Instructions <a name="instruction"></a>
-1. Clone the folder in the repository:
 
-```
-https://github.com/naomyduarteg/CRUD_python_mongo.git
-```
-2. Create a virtual environement
+## Detalhes da estrutura
 
-```
-python -m venv <name_of_venv>
-```
-3. Go to your venv's folder and activate the virtual environement
+### Models
+Nesta pasta, definimos a estrutura dos objetos utilizados.
+- Clientes: id, nome completo, email único e válido, senha.
+- Endereço dos clientes: apelido do endereço, email do cliente (que associa o endereço a ele), logradouro, número, cidade, estado e CEP.
+- Itens (filmes e séries): id, tipo, nome, descrição, preço de aluguel, preço de compra, gênero, ano, duração, linguagens, legendas.
+- Itens do carrinho: id, quantidade, preço.
+- Carrinho: id, id do usuário ao qual o carrinho pertence, produtos, preço total, quantidade de produtos.
 
-On Windows:
-```
-Scripts/activate
-```
-On Linux/Mac:
-```
-bin/activate
-```
-4. Install the required libraries
+### Business objects
+Nesta pasta, definimos as regras pelas quais clientes, endereços, itens e carrinhos serão solicitados pela API de acordo com os requerimentos do projeto. Além disso, como características próprias deste projeto, temos:
+- Clientes não são removidos.
+- Endereços são removidos.
+- Os produtos possuem a opção de alugar ou comprar.
+- Os produtos podem ser removidos do banco de dados de produtos, porém não são removidos do carrinho. 
 
-```
-pip install -r requirements.txt
-```
-5. Go to your MongoDB account https://cloud.mongodb.com/ and create or connect to an existing cluster. Choose "Connect you application" and copy the connection string. Put it on .env at ATLAS_URI and don't forget to change "password" by your password. 
 
-6. Run the API:
+### Endpoints
+Nesta pasta, definimos os canais de comunicação da API.
 
-```
-uvicorn main:app --reload
-```
+## Swagger
+Para testar a API de forma interavita, podemos utilizar o Swagger, que é uma documentação automática. A API ![luluflix (1)](https://user-images.githubusercontent.com/73078250/195190456-941ad59c-ca69-4e47-89d6-f7060299cba7.svg) possui a seguinte documentação:
 
-You should see the message "Connected to the MongoDB database!" if everything is working. Copy and go to the address that appears on the terminal when the API runs correctly: http://127.0.0.1:8000. At the docs page, http://127.0.0.1:8000/docs, 
-you can test the API. 
-It is also possible to verify the collections and documents on MongoDB Compass by connecting using the ATLAS_URI address at the .env directory. This is what you should see at your MongoDB Compass Collections once you create users, addresses and items:
-![image](https://user-images.githubusercontent.com/73078250/193099896-1ca937e9-41eb-4746-8914-d0d8e87bd38c.png)
+![image](https://user-images.githubusercontent.com/73078250/195184146-e6ad3a4a-1299-472a-a35a-ef70cc620123.png)
+
+## Banco de dados
+Utilizando o MongoDB Compass, podemos visualizar o bando de dados deste projeto, que possui as seguintes coleções:
+![mongodb](https://user-images.githubusercontent.com/73078250/195186801-d12a0243-c25d-4c97-adde-09fe30ea2198.png)
+
+## Execução da API ![luluflix (1)](https://user-images.githubusercontent.com/73078250/195190456-941ad59c-ca69-4e47-89d6-f7060299cba7.svg)
