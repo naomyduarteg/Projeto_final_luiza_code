@@ -29,6 +29,7 @@ def addProductItem(item_list: List[CartsItem], item: CartsItem):
     for cart_item in item_list:
         if (cart_item["product_id"] == item["product_id"]):
             cart_item["quantity"] = item["quantity"]
+            cart_item["price"] = item["price"]
             is_update = True
            
     if (is_update == False):      
@@ -92,6 +93,7 @@ def create_cart(request: Request,user_id: str, product_id: str, product_qtt: int
     get_collection_carts(request).update_one(filter, {"$set": {"products": jsonable_encoder(products)}})       
     get_collection_carts(request).update_one(filter, {"$set": {"total_price": round(total,2)}})
     get_collection_carts(request).update_one(filter, {"$set": {"quantity_products": total_amount}})
+    
         
     cart["products"] = products
     cart["total_price"] = round(total,2)       
