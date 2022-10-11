@@ -3,7 +3,7 @@ import uvicorn
 from dotenv import dotenv_values
 from pymongo import MongoClient
 from src.routes.api import router as api_router
-config = dotenv_values(".env.example")
+config = dotenv_values(".env")
 
 app = FastAPI()
 
