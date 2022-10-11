@@ -18,7 +18,7 @@
 
 ## Objetivos
 
-Este é o projeto final do bootcamp de aceleração em Python promovido pelo Luiza labs, que sumariza tudo o que foi aprendido durante as semanas por meio da criação de um carrinho de compras. Nosso grupo recebeu como objetos de venda filmes e séries e nomeamos nossa aplicação ![luluflix (1)](https://user-images.githubusercontent.com/73078250/195190456-941ad59c-ca69-4e47-89d6-f7060299cba7.svg)
+Este é o projeto final do bootcamp de aceleração em Python promovido pelo Luiza labs, que sumariza tudo o que foi aprendido durante as semanas por meio da criação de um carrinho de compras. Nosso grupo recebeu como objetos de venda filmes e séries e nomeamos nossa aplicação ![luluflix (1)](https://user-images.githubusercontent.com/73078250/195190456-941ad59c-ca69-4e47-89d6-f7060299cba7.svg).
 
 Utilizamos Python como linguagem de programação, o framework FastAPI e a base de dados não-relacional MongoDB. 
 Para a criação do carrinho, as informações que utilizamos no projeto foram: clientes, produtos e o próprio carrinho. Os clientes podem cadastrar mais de um endereço e podem alugar ou comprar filmes e séries em formato digital (nenhum produto físico é utilizado). 
@@ -71,6 +71,7 @@ Nesta pasta, definimos as regras pelas quais clientes, endereços, itens e carri
 - Clientes não são removidos.
 - Endereços são removidos.
 - Os produtos possuem a opção de alugar ou comprar.
+- Como não são produtos físicos, não fazemos balanço de estoque.
 - Os produtos podem ser removidos do banco de dados de produtos, porém não são removidos do carrinho. 
 
 
@@ -78,7 +79,7 @@ Nesta pasta, definimos as regras pelas quais clientes, endereços, itens e carri
 Nesta pasta, definimos os canais de comunicação da API.
 
 ## Swagger
-Para testar a API de forma interavita, podemos utilizar o Swagger, que é uma documentação automática. A API ![luluflix (1)](https://user-images.githubusercontent.com/73078250/195190456-941ad59c-ca69-4e47-89d6-f7060299cba7.svg) possui a seguinte documentação:
+Para testar a API de forma interativa, podemos utilizar o Swagger, que é uma documentação automática. A API ![luluflix (1)](https://user-images.githubusercontent.com/73078250/195190456-941ad59c-ca69-4e47-89d6-f7060299cba7.svg) possui a seguinte documentação:
 
 ![image](https://user-images.githubusercontent.com/73078250/195184146-e6ad3a4a-1299-472a-a35a-ef70cc620123.png)
 
