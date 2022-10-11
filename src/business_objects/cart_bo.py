@@ -49,7 +49,7 @@ def get_cart(request: Request,user_id: str):
         return cart
     raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Cart with user id {user_id} not found")
   
-def create_cart(request: Request,user_id: str, product_id: str, product_qtt: int):
+def create_cart(request: Request,user_id: str, product_id: str, product_qtt: int, buy_or_rent: str):
     product = request.app.database["items"].find_one({"_id": product_id})    
     if product is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Product with id {product_id} not found")
@@ -58,12 +58,23 @@ def create_cart(request: Request,user_id: str, product_id: str, product_qtt: int
     if user is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"User with id {user_id} not found")
    
+    if buy_or_rent == "Buy":
+        price = product["price_buy"]
+    elif buy_or_rent == "Rent":
+        price = product["price_rent"]
+    else:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Option not found")
+    
     cart = get_collection_carts(request).find_one({"user_id": user_id})
-    cart_item = CartsItem(product_id=product_id, quantity=product_qtt, price=product["price"])
-   
-    if cart is None:          
+    cart_item = CartsItem(product_id=product_id, quantity=product_qtt, price=price)
+
+    if cart is None:  
+        if buy_or_rent == "Buy":
+            total = product["price_buy"] * product_qtt 
+        elif buy_or_rent == "Rent":
+            total = product["price_rent"] * product_qtt
+        
         list_products = [cart_item]        
-        total = product["price"] * product_qtt
         cart = Cart(user_id= user_id, products= list_products, total_price= total, quantity_products = product_qtt)
         cart = jsonable_encoder(cart)
         new_item = get_collection_carts(request).insert_one(cart)
@@ -79,11 +90,11 @@ def create_cart(request: Request,user_id: str, product_id: str, product_qtt: int
     
     filter = {"_id": cart["_id"]}
     get_collection_carts(request).update_one(filter, {"$set": {"products": jsonable_encoder(products)}})       
-    get_collection_carts(request).update_one(filter, {"$set": {"total_price": total}})
+    get_collection_carts(request).update_one(filter, {"$set": {"total_price": round(total,2)}})
     get_collection_carts(request).update_one(filter, {"$set": {"quantity_products": total_amount}})
         
     cart["products"] = products
-    cart["total_price"] = total       
+    cart["total_price"] = round(total,2)       
     cart["quantity_products"] = total_amount
     
     return cart
