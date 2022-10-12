@@ -126,8 +126,9 @@ def delete_product(request: Request, user_id: str, product_id: str):
       raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Product with id {product_id} not found")
         
   if list_products == []:
-      delete_cart(request, user_id)                
-      return "Cart with no products. Successfully deleted!" 
+      delete_cart(request, user_id)
+      raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Cart with no products. Cart deleted!")                
+       
   
   filter = {"_id": cart["_id"]}
   get_collection_carts(request).update_one(filter, {"$set": {"products": jsonable_encoder(list_products)}})
