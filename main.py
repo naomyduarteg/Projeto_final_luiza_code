@@ -25,6 +25,7 @@ def shutdown_db_client():
 app.include_router(api_router)
 
 if __name__ == '__main__':
-    # PORT = os.environ.get("PORT")#indicates that this programm is a script to be run, not imported or just a library
-    # uvicorn.run("main:app", host='127.0.0.1', port=PORT, log_level="info", reload = True)
-    uvicorn.run("main:app")
+    PORT = os.environ.get("PORT")
+    HOST = os.environ.get("HOST")#indicates that this programm is a script to be run, not imported or just a library
+    uvicorn.run("main:app", host=HOST, port=PORT, log_level="info", reload = True)
+    # uvicorn.run("main:app")
