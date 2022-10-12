@@ -109,7 +109,7 @@ No Linux/Mac:
 ```
 bin/activate
 ```
-4. Insale os módulos requeridos
+4. Instale os módulos requeridos
 
 ```
 pip install -r requirements.txt
@@ -120,3 +120,23 @@ pip install -r requirements.txt
 ```
 uvicorn main:app --reload
 ```
+
+## Deploy da Aplicação
+O deploy foi realizado junto ao Heroku, onde é necessário configurar as variáveis de ambiente.
+
+Para visualizar o deploy:
+1) Acesse o link: https://luizacodeprojetofinal.herokuapp.com/docs
+ou
+2) Acesse o QR Code abaixo:
+
+
+
+## Tecnologias/Ferramentas usadas:
+* Python
+* MongoDB
+* FastApi
+* Uvicorn
+* Swagger
+* Git/Github Projects
+* Heroku
+
