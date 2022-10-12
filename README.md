@@ -84,7 +84,7 @@ Para testar a API de forma interativa, podemos utilizar o Swagger, que é uma do
 ![image](https://user-images.githubusercontent.com/73078250/195345570-bb539dd8-9136-458a-8240-3703f21511be.png)
 
 ## Banco de dados
-Utilizando o MongoDB Compass, podemos visualizar o banco de dados deste projeto, que possui as seguintes coleções:
+Para a conexão com o banco de dados, é necessário informar uma URI, conforme exemplo em .env.examples. Esta URI pode ser obtida na página do MongoDB quando clicamos em "Connect -> Connect your application". Com esta mesma URI e utilizando o MongoDB Compass, podemos visualizar o banco de dados deste projeto, que possui as seguintes coleções:
 ![mongodb](https://user-images.githubusercontent.com/73078250/195186801-d12a0243-c25d-4c97-adde-09fe30ea2198.png)
 
 ## Execução da API ![luluflix (1)](https://user-images.githubusercontent.com/73078250/195190456-941ad59c-ca69-4e47-89d6-f7060299cba7.svg)
