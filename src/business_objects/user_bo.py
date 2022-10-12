@@ -2,7 +2,7 @@ from fastapi import Body, Request, HTTPException, status
 from fastapi.encoders import jsonable_encoder
 from bson import ObjectId
 
-from src.models.users import User, UserAddress
+from src.models.users import UserNew, UserAddress
 
 def get_collection_users(request: Request):
   return request.app.database["users"]
@@ -10,7 +10,7 @@ def get_collection_users(request: Request):
 def get_collection_addresses(request: Request):
   return request.app.database["addresses"]
 
-def create_user(request: Request, user: User = Body(...)):
+def create_user(request: Request, user: UserNew = Body(...)):
     user = jsonable_encoder(user)
     new_user = get_collection_users(request).insert_one(user)
     created_user = get_collection_users(request).find_one(
