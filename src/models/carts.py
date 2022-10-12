@@ -9,3 +9,21 @@ class Cart(BaseModel):
     products: List[CartsItem] = []
     total_price: float
     quantity_products: int
+    
+    class Config:
+        allow_population_by_field_name = True
+        schema_extra = {
+             "example": {                
+                "user_id": "ad7302a5-cc2b-4afb",
+                "products": [
+                    {
+                        "product_id": "47694f4f-1eea-4092",
+                        "quantity": 2,
+                        "price": 6.0
+                    }
+                ],
+                "total_price": 12.0,
+                "quantity_products": 2
+
+            }
+        }
