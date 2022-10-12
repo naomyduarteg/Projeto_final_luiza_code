@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Request, status
 from typing import List
 
-from src.models.products import Item, ItemUpdate
+from src.models.products import Item, ItemNew, ItemUpdate
 import src.business_objects.product_bo as product_bo
 
 
@@ -9,7 +9,7 @@ router = APIRouter(prefix="/item",
     tags=["Item"])
 
 @router.post("/", response_description="Create an item", status_code=status.HTTP_201_CREATED, response_model=Item)
-def create_item(request: Request, item: Item):    
+def create_item(request: Request, item: ItemNew):    
     return product_bo.create_item(request, item)
 
 @router.put("/{id}", response_description="Update an item", response_model=Item)

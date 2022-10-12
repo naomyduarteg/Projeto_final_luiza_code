@@ -1,12 +1,12 @@
 from fastapi import Request, HTTPException, status
 from fastapi.encoders import jsonable_encoder
 
-from src.models.products import Item, ItemUpdate
+from src.models.products import ItemNew, ItemUpdate
 
 def get_collection_items(request: Request):
   return request.app.database["items"]
 
-def create_item(request: Request, item: Item):
+def create_item(request: Request, item: ItemNew):
     item = jsonable_encoder(item)
     new_item = get_collection_items(request).insert_one(item)
     created_item = get_collection_items(request).find_one(
