@@ -15,7 +15,7 @@ def get_carts(request: Request):
 def get_cart(request: Request,user_id: str):               
     return cart_bo.get_cart(request,user_id)
 
-@router.post("/", response_description="Create and update a cart", status_code=status.HTTP_201_CREATED)
+@router.post("/", response_description="Create and update a cart", status_code=status.HTTP_201_CREATED, response_model=Cart)
 def create_cart(request: Request, cartsItemNew: CartsItemNew):
     return cart_bo.create_cart(request, cartsItemNew)
     
