@@ -22,6 +22,7 @@ class User(BaseModel):
 
 #-------------------------------- ADDRESS -------------------------------------------
 class UserAddress(BaseModel):
+    addr_id: str = Field(default_factory=uuid.uuid4, alias="_id")
     addr_name: Optional[str] #apelido do endereço
     user_email: str 
     street: str 

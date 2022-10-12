@@ -44,7 +44,7 @@ def find_user_address(request: Request,email: str):
     raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"User has no address yet.")
   
 def delete_user_addr(request: Request, addr_id: str):
-    deleted_user_addr = get_collection_addresses(request).delete_one({"_id": ObjectId(addr_id)})
+    deleted_user_addr = get_collection_addresses(request).delete_one({"_id": addr_id})
 
     if deleted_user_addr.deleted_count == 1:
         return f"Address with ID {addr_id} deleted sucessfully"
