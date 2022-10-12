@@ -125,10 +125,18 @@ uvicorn main:app --reload
 O deploy foi realizado junto ao Heroku, onde é necessário configurar as variáveis de ambiente.
 
 Para visualizar o deploy:
-1) Acesse o link: https://luizacodeprojetofinal.herokuapp.com/docs
-ou
-2) Acesse o QR Code abaixo:
 
+1) Acesse o QR Code abaixo:
+
+
+![api_LuluFlix](https://user-images.githubusercontent.com/75817559/195410406-af5daf6d-7ade-4309-9659-f52bc75492f3.png)
+
+
+
+ou
+
+
+2) Acesse o link: https://luizacodeprojetofinal.herokuapp.com/docs
 
 
 ## Tecnologias/Ferramentas usadas:
