@@ -36,8 +36,8 @@ class UserAddress(BaseModel):
             "example": {
                 "addr_name": "Casa",
                 "user_email": "dollyna@gmail.com",
-                "street": "Rua Capitão José Esteves Júnior",
-                "number": "639",
+                "street": "Rua blablabla",
+                "number": "123",
                 "city": "Altinópolis",
                 "state": "São Paulo",
                 "cep": "14350000"
