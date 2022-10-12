@@ -1,7 +1,8 @@
-from fastapi import APIRouter, Request, status
+from fastapi import APIRouter, Request, status, Body
 from typing import List
 
 from src.models.carts import Cart
+from src.models.carts_item_new import CartsItemNew
 import src.business_objects.cart_bo as cart_bo
 
 router = APIRouter(prefix="/cart", tags=["Cart"])
@@ -14,9 +15,10 @@ def get_carts(request: Request):
 def get_cart(request: Request,user_id: str):               
     return cart_bo.get_cart(request,user_id)
 
-@router.post("/{user_id}/{product_id}/{product_qtt}/{buy_or_rent}/", response_description="Create and update a cart", status_code=status.HTTP_201_CREATED)
-def create_cart(request: Request, user_id: str, product_id: str, product_qtt: int, buy_or_rent: str):
-    return cart_bo.create_cart(request, user_id, product_id, product_qtt, buy_or_rent)
+@router.post("/", response_description="Create and update a cart", status_code=status.HTTP_201_CREATED)
+def create_cart(request: Request, cartsItemNew: CartsItemNew):
+    return cart_bo.create_cart(request, cartsItemNew)
+    
 
 @router.delete("/{user_id}/{product_id}", response_description="Delete an item from cart", status_code=status.HTTP_200_OK)
 def delete_product(request: Request, user_id: str, product_id: str):    
