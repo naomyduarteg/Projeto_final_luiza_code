@@ -81,7 +81,7 @@ Nesta pasta, definimos os canais de comunicação da API.
 ## Swagger
 Para testar a API de forma interativa, podemos utilizar o Swagger, que é uma documentação automática. A API ![luluflix (1)](https://user-images.githubusercontent.com/73078250/195190456-941ad59c-ca69-4e47-89d6-f7060299cba7.svg) possui a seguinte documentação:
 
-![image](https://user-images.githubusercontent.com/73078250/195184146-e6ad3a4a-1299-472a-a35a-ef70cc620123.png)
+![image](https://user-images.githubusercontent.com/73078250/195345570-bb539dd8-9136-458a-8240-3703f21511be.png)
 
 ## Banco de dados
 Utilizando o MongoDB Compass, podemos visualizar o bando de dados deste projeto, que possui as seguintes coleções:
