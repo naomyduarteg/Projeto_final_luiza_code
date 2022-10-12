@@ -99,7 +99,7 @@ https://github.com/naomyduarteg/Projeto_final_luiza_code.git
 ```
 python3 -m venv <name_of_venv>
 ```
-3. Vá até a pasta onde foi criada seu ambiente virtual e ative-o
+3. Vá até a pasta onde foi criado seu ambiente virtual e ative-o
 
 No Windows:
 ```
