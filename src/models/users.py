@@ -43,3 +43,19 @@ class UserAddress(BaseModel):
                 "cep": "14350000"
             }
         }
+
+class UserNew(BaseModel): 
+    id: str = Field(default_factory=uuid.uuid4, alias="_id")   
+    name: str 
+    email: EmailStr = Field(unique=True, index=True)
+    password: str 
+
+    class Config:
+        allow_population_by_field_name = True
+        schema_extra = {
+            "example": {                
+                "name": "Dolly",
+                "email": "dollyna@gmail.com",
+                "password": "cachorrinha.fofa.123"
+            }
+        }
