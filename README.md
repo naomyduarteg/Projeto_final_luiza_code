@@ -121,6 +121,8 @@ pip install -r requirements.txt
 uvicorn main:app --reload
 ```
 
+A mensagem "Project connected to the MongoDB database!" deverá aparecer se a execução for bem sucedida. A partir deste ponto, pode-se usar o Swagger para teste da API e o MongoDB Compass para acompanhar os documentos gerados em cada coleção, conforme mostrado nas imagens acima.
+
 ## Deploy da Aplicação
 O deploy foi realizado junto ao Heroku, onde é necessário configurar as variáveis de ambiente.
 
