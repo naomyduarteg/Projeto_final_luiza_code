@@ -120,6 +120,3 @@ pip install -r requirements.txt
 ```
 uvicorn main:app --reload
 ```
-
-7. Leia o QR Code abaixo para acessar a documentação
-<img src="https://user-images.githubusercontent.com/73078250/195349991-6953b178-b36b-4b23-9b9d-a202285d1e78.png" width="400" height="420" />
