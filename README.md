@@ -130,8 +130,7 @@ Para visualizar o deploy:
 
 1) Acesse o QR Code abaixo:
 
-
-![api_LuluFlix](https://user-images.githubusercontent.com/75817559/195410406-af5daf6d-7ade-4309-9659-f52bc75492f3.png)
+![QRCode_Fácil (2)](https://user-images.githubusercontent.com/75817559/198587090-3becdb40-6116-4c7a-b577-e9fd4bb6baaf.png)
 
 
 
